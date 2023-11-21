@@ -1,0 +1,49 @@
+package SimpleCalculator;
+import java.util.Scanner;
+public class Simple_Calculator {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int num1,num2;
+		//int result = 0;
+		System.out.println("Enter the first number :");
+		num1 = sc.nextInt();
+		System.out.println("Enter the second number :");
+		num2 = sc.nextInt();
+		System.out.println("Enter the operation you want to perform (+,-,*,/)");
+		String operation; 
+		operation = sc.next();
+		int result = calculate(num1,num2,operation);
+		System.out.println("The result after the performed operation is :"+result);
+		sc.close();
+		
+	}
+	public static int calculate(int num1,int num2,String operation)
+	{
+		int result = 0;
+		if(operation.equals("+"))
+		{
+			result = num1 + num2 ;
+		}
+		else if(operation.equals("-"))
+		{
+			result = num1 - num2 ;
+		}
+		else if(operation.equals("*"))
+		{
+			result = num1 * num2 ;
+		}
+		else if(operation.equals("/"))
+		{
+			result = num1 / num2 ;
+		}
+		else
+		{
+			System.out.println("Invalid Opeartion");
+		}
+		return result;
+		
+	}
+	
+
+}

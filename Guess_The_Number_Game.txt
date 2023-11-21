@@ -1,0 +1,67 @@
+Guess_The_Number_Game.java
+
+import java.util.*;
+public class Guess_The_Number_Game {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		char ch = 'y';
+		while(ch=='y'||ch=='Y')
+		{
+			GuessTheNumber(ch,sc);
+			System.out.println("Do you want to play One more game ? y/n ");
+			ch = sc.next().charAt(0);
+		}
+
+	}
+	public static void GuessTheNumber(char ch, Scanner sc )
+	{
+//		Scanner sc = new Scanner(System.in);
+		int rand = (int) (Math.random() * (100-0)+0);
+		System.out.println("Random number is "+rand);
+		int guess_count=0;
+		System.out.println("Guess the Number : ");
+		int guess = sc.nextInt();
+		int temp = (rand - guess);
+		System.out.println("Diff : "+temp);
+		while(ch=='y'||ch=='Y')
+		{
+			
+			if(guess == rand)
+			{
+				System.out.println("Your guess is correct !!!");
+				System.out.println("You guessed the number in "+(guess_count+1)+" chances");
+				break;
+			}
+			else
+			{
+				System.out.println("You guess is wrong !!!");
+				if(temp <= -25)
+				{
+					System.out.println("It is too high !!!");
+				}
+				else if(temp >= 25 )
+				{
+					System.out.println("It is too low !!!");
+				}
+				else
+				{
+					System.out.println("You are near to it !!!");
+				}
+				System.out.println("Do you want to continue the game or stop ? y/n");
+				ch = sc.next().charAt(0);
+				if(ch=='n' || ch=='N')
+				{
+					System.exit(0);
+				}
+			}
+			System.out.println("Guess the Number : ");
+			guess = sc.nextInt();
+			temp = rand - guess;
+			guess_count ++;
+		}
+//		return 0;
+	}
+
+}
