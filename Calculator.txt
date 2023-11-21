@@ -1,49 +1,66 @@
-package SimpleCalculator;
 import java.util.Scanner;
-public class Simple_Calculator {
-
-	public static void main(String[] args) {
+public class Simple_Calculator 
+{
+	public static void main(String[] args) 
+	{
 		Scanner sc = new Scanner(System.in);
 		int num1,num2;
+    		char ch = 'y';
 		//int result = 0;
-		System.out.println("Enter the first number :");
+    		while(ch=='y' || ch=='Y')
+       		{
+		System.out.println("Enter the first number :");                                  // reading 1st num
 		num1 = sc.nextInt();
-		System.out.println("Enter the second number :");
+		System.out.println("Enter the second number :");                                 // reading 2nd num
 		num2 = sc.nextInt();
-		System.out.println("Enter the operation you want to perform (+,-,*,/)");
+		System.out.println("Enter the operation to be performed (+,-,*,/,%)");           //reading the operation
 		String operation; 
 		operation = sc.next();
-		int result = calculate(num1,num2,operation);
-		System.out.println("The result after the performed operation is :"+result);
-		sc.close();
-		
+		calculate(num1,num2,operation);                        // calliing the calculator() function
+      		System.out.println("Do you want to perform another operation ? y/n ");
+        	ch = sc.next().charAt(0);
+      		}
+		sc.close();	
 	}
-	public static int calculate(int num1,int num2,String operation)
+	public static void calculate(int num1,int num2,String operation)
 	{
 		int result = 0;
+		try {
 		if(operation.equals("+"))
 		{
 			result = num1 + num2 ;
+			System.out.println(result);
 		}
 		else if(operation.equals("-"))
 		{
 			result = num1 - num2 ;
+			System.out.println(result);
 		}
 		else if(operation.equals("*"))
 		{
 			result = num1 * num2 ;
+			System.out.println(result);
 		}
 		else if(operation.equals("/"))
 		{
 			result = num1 / num2 ;
+			System.out.println(result);
+			
+		}
+		else if(operation.equals("%"))
+		{
+		    result = num1 % num2;
+		    System.out.println(result);
 		}
 		else
 		{
 			System.out.println("Invalid Opeartion");
 		}
-		return result;
 		
+		}
+		catch(Exception e) 
+		{
+		    System.out.println(e);     // exception throws if any   
+		}	
 	}
-	
-
 }
