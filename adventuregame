@@ -1,0 +1,109 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class TextAdventureGame {
+
+    // Class to represent a room in the game
+    static class Room {
+        String description;
+        Map<String, String> exits = new HashMap<>();
+        Map<String, String> items = new HashMap<>();
+
+        Room(String description) {
+            this.description = description;
+        }
+    }
+
+    // Class to represent the player in the game
+    static class Player {
+        Room currentRoom;
+
+        Player(Room startingRoom) {
+            this.currentRoom = startingRoom;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create rooms
+        Room livingRoom = new Room("You are in the living room. There is a couch and a TV.");
+        Room kitchen = new Room("You are in the kitchen. You can smell something delicious.");
+        Room bedroom = new Room("You are in the bedroom. The bed is neatly made.");
+
+        // Set room exits
+        livingRoom.exits.put("east", "kitchen");
+        kitchen.exits.put("west", "livingRoom");
+        kitchen.exits.put("north", "bedroom");
+        bedroom.exits.put("south", "kitchen");
+
+        // Set initial items
+        livingRoom.items.put("key", "A shiny golden key is on the coffee table.");
+
+        // Create player
+        Player player = new Player(livingRoom);
+
+        // Game loop
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            // Display current room description
+            System.out.println(player.currentRoom.description);
+
+            // Display items in the room
+            if (!player.currentRoom.items.isEmpty()) {
+                System.out.println("Items in the room:");
+                for (String item : player.currentRoom.items.values()) {
+                    System.out.println(item);
+                }
+            }
+
+            // Prompt for user input
+            System.out.print("Enter command: ");
+            String command = scanner.nextLine().toLowerCase();
+
+            // Process user input
+            if (command.equals("quit")) {
+                System.out.println("Thanks for playing. Goodbye!");
+                break;
+            } else if (command.equals("help")) {
+                System.out.println("Commands: go [direction], look, take [item], quit");
+            } else if (command.startsWith("go ")) {
+                String direction = command.substring(3);
+                String nextRoom = player.currentRoom.exits.get(direction);
+                if (nextRoom != null) {
+                    player.currentRoom = getRoom(nextRoom);
+                } else {
+                    System.out.println("You can't go that way.");
+                }
+            } else if (command.equals("look")) {
+                // Display room description again
+            } else if (command.startsWith("take ")) {
+                String item = command.substring(5);
+                String itemDescription = player.currentRoom.items.get(item);
+                if (itemDescription != null) {
+                    System.out.println("You take the " + item + ".");
+                    player.currentRoom.items.remove(item);
+                } else {
+                    System.out.println("There is no such item here.");
+                }
+            } else {
+                System.out.println("Invalid command. Type 'help' for a list of commands.");
+            }
+        }
+
+        scanner.close();
+    }
+
+    // Helper method to get a room by name
+    private static Room getRoom(String roomName) {
+        switch (roomName) {
+            case "livingRoom":
+                return livingRoom;
+            case "kitchen":
+                return kitchen;
+            case "bedroom":
+                return bedroom;
+            default:
+                return null;
+        }
+    }
+}
